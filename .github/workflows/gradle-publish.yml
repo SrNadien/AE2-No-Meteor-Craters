@@ -43,7 +43,7 @@ jobs:
         uses: tsickert/discord-webhook@v6.0.0
         with:
           webhook-url: ${{ secrets.WEBHOOK_URL }}
-          embed-title: Mekanism ${{ steps.gradle_props.outputs.mod_version }}.${{ github.run_number }} for Minecraft ${{ steps.gradle_props.outputs.minecraft_version }} Released
+          embed-title: AE2NoMeteorCraters ${{ steps.gradle_props.outputs.mod_version }}.${{ github.run_number }} for Minecraft ${{ steps.gradle_props.outputs.minecraft_version }} Released
           embed-url: ${{ steps.gh_release.outputs.url }}
           embed-description: |
             Available on Curseforge after approval.
