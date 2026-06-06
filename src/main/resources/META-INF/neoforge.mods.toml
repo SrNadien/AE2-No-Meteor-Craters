@@ -10,7 +10,10 @@ version = "${mod_version}"
 displayName = "${mod_named}"
 description = "${mod_description}"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/ae2-no-meteor-crates"
-logoFile="logo.png" 
+logoFile="logo.png"
+
+[[mixins]]
+config = "mixins/ae2nocrater.mixins.json"
 
 [[mods.dependencies.${mod_id}]]
 modId = "neoforge"
