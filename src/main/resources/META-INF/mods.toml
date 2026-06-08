@@ -16,7 +16,7 @@ logoFile="logo.png"
 config = "mixins/ae2nocrater.mixins.json"
 
 [[mods.dependencies.${mod_id}]]
-modId = "neoforge"
+modId = "forge"
 mandatory=true
 versionRange = "${forge_version}"
 ordering = "NONE"
