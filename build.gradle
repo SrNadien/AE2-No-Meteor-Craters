@@ -1,7 +1,8 @@
 plugins {
     id 'java'
     id 'idea'
-    id 'net.neoforged.gradle.userdev' version '7.0.171'
+    id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
 
@@ -9,28 +10,78 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
-version =minecraft_version + "-" + mod_version + "-" + tag_platform
+version = minecraft_version + "-" + mod_version + "-" + tag_platform
 group = mod_group_id
 
 base {
-    archivesName = mod_name 
+    archivesName = mod_name
 }
 
-java {
-    toolchain.languageVersion = JavaLanguageVersion.of(21)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'parchment', version: parchment_mappings_version + '-' + parchment_minecraft_version
+    
+    copyIdeResources = true
+
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', mod_id
+
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', mod_id
+
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+
+            args '--nogui'
+        }
+
+        gameTestServer {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'forge.enabledGameTestNamespaces', mod_id
+
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
 }
 
-runs {
-    client {
-        client()
-        systemProperty 'neoforge.enabledGameTestNamespaces', 'ae2nometeorcrates'
-    }
-    server {
-        server()
-        programArgument '--nogui'
-        systemProperty 'neoforge.enabledGameTestNamespaces', 'ae2nometeorcrates'
-    }
-}
 
 repositories {
     mavenLocal()
@@ -48,29 +99,37 @@ repositories {
         name = "Jared's maven"
         url = "https://maven.blamejared.com/"
     }
+    maven {
+        url = "https://maven.parchmentmc.org"
+    }
+    maven {
+        name "Modmaven ae2 1.20.1"
+        url "https://modmaven.dev/"
+        // For Gradle 5.1 and above, limit it to just AE2
+        content {
+            includeGroup 'appeng'
+        }
+    }
 }
 
 dependencies {
-    implementation "net.neoforged:neoforge:${neo_version}"
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
 
     // Applied Energistics 2
-    // compileOnly "org.appliedenergistics:appliedenergistics2:${ae2_version}"
-    // runtimeOnly "org.appliedenergistics:appliedenergistics2:${ae2_version}"
-    implementation "org.appliedenergistics:appliedenergistics2:${ae2_version}"
+    implementation "appeng:appliedenergistics2-forge:${ae2_version}"
 
     // GuideMe
     implementation "org.appliedenergistics:guideme:${guideme_version}"
 
     // Just Enough Items
-    // runtimeOnly "mezz.jei:jei-1.21.1-neoforge:${jei_version}"
-    implementation "mezz.jei:jei-1.21.1-neoforge:${jei_version}"
+    implementation "mezz.jei:jei-${minecraft_version}-forge:${jei_version}"
 }
 
 tasks.withType(ProcessResources).configureEach {
     var replaceProperties = [
         minecraft_version      : minecraft_version,
-        neo_version            : neo_version,
+        forge_version            : forge_version,
         loader_version_range   : loader_version_range,
         mod_id                 : mod_id,
         mod_version            : mod_version,
@@ -85,7 +144,7 @@ tasks.withType(ProcessResources).configureEach {
     ]
     inputs.properties replaceProperties
 
-    filesMatching(['META-INF/neoforge.mods.toml']) {
+    filesMatching(['META-INF/mods.toml']) {
         expand replaceProperties
     }
 }
