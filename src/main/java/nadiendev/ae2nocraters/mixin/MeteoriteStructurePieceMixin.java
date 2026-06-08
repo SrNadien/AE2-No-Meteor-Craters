@@ -1,4 +1,4 @@
-package nadiendev.ae2nometeorcrates.mixin;
+package nadiendev.ae2nometeorcraters.mixin;
 
 import appeng.worldgen.meteorite.CraterType;
 import appeng.worldgen.meteorite.MeteoriteStructurePiece;
