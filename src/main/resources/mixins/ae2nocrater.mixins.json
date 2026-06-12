@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "nadiendev.ae2nometeorcrates.mixin",
+  "package": "nadiendev.ae2nometeorcraters.mixin",
   "compatibilityLevel": "JAVA_21",
   "refmap": "ae2nometeorcrates.refmap.json",
   "mixins": [
