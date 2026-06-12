@@ -55,12 +55,3 @@ jobs:
             build/libs/*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Discord Notification
-        if: success() && secrets.WEBHOOK_URL != ''
-        uses: tsickert/discord-webhook@v6.0.0
-        with:
-          webhook-url: ${{ secrets.WEBHOOK_URL }}
-          embed-title: AE2NoMeteorCraters v${{ steps.gradle_props.outputs.release_version }} Released
-          embed-description: |
-            GitHub Release created successfully.
