@@ -29,7 +29,10 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.enabledGameTestNamespaces', mod_id
+            args '-mixin.config=mixins/ae2nocrater.mixins.json'
 
             mods {
                 "${mod_id}" {
@@ -42,6 +45,8 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.enabledGameTestNamespaces', mod_id
 
             mods {
@@ -50,13 +55,15 @@ minecraft {
                 }
             }
 
-            args '--nogui'
+            args '--nogui', '-mixin.config=mixins/ae2nocrater.mixins.json'
         }
 
         gameTestServer {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             property 'forge.enabledGameTestNamespaces', mod_id
 
             mods {
@@ -70,6 +77,8 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
@@ -117,13 +126,13 @@ dependencies {
 
 
     // Applied Energistics 2
-    implementation "appeng:appliedenergistics2-forge:${ae2_version}"
+    implementation fg.deobf("appeng:appliedenergistics2-forge:${ae2_version}")
 
     // GuideMe
-    implementation "org.appliedenergistics:guideme:${guideme_version}"
+    implementation fg.deobf("org.appliedenergistics:guideme:${guideme_version}")
 
     // Just Enough Items
-    implementation "mezz.jei:jei-${minecraft_version}-forge:${jei_version}"
+    implementation fg.deobf("mezz.jei:jei-${minecraft_version}-forge:${jei_version}")
 }
 
 tasks.withType(ProcessResources).configureEach {
@@ -158,5 +167,11 @@ idea {
     module {
         downloadSources = true
         downloadJavadoc = true
+    }
+}
+
+jar {
+    manifest {
+        attributes 'MixinConfigs': 'mixins/ae2nocrater.mixins.json'
     }
 }

@@ -24,7 +24,7 @@ side = "BOTH"
 
 [[dependencies.${mod_id}]]
     modId="minecraft"
-    type="required"
+    mandatory=true
     versionRange="${minecraft_version}"
     ordering="NONE"
     side="BOTH"
@@ -45,7 +45,7 @@ side = "BOTH"
 
 [[mods.dependencies.${mod_id}]]
 modId = "jei"
-type = "optional"
+mandatory=false
 versionRange = "${jei_version}"
 ordering = "AFTER"
 side = "BOTH"
