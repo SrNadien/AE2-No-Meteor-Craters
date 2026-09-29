@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "refmap": "ae2nometeorcrates.refmap.json",
   "mixins": [
+    "MeteoritePlacerMixin",
     "MeteoriteStructurePieceMixin"
   ],
   "injectors": {
