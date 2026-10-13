@@ -10,7 +10,7 @@ displayName = "${mod_named}"
 authors = "${mod_author}"
 description = "${mod_description}"
 displayURL = "https://www.curseforge.com/minecraft/mc-mods/ae2-no-meteor-crates"
-logoFile = "logo.png"
+iconFile = "logo.png"
 
 [[mixins]]
 config = "mixins/ae2nocrater.mixins.json"

@@ -3,7 +3,7 @@ name: Build and Release
 on:
   push:
     branches:
-      - "Neo/26.1.2"
+      - "Neo/26.3"
     paths:
       - "src/**"
       - "gradle.properties"
@@ -75,7 +75,7 @@ jobs:
           set -euo pipefail
           : "${CURSEFORGE_TOKEN:?Add the CURSEFORGE_TOKEN secret to the repository}"
           : "${CURSEFORGE_PROJECT_ID:?Add the CURSEFORGE_PROJECT_ID variable to the repository}"
-          MC="26.1.2"
+          MC="26.3"
 
           RELEASE_TYPE=release
           if [[ "$COMMIT_MESSAGE" =~ \[curseforge\ (alpha|beta|release)\] ]]; then RELEASE_TYPE="${BASH_REMATCH[1]}"; fi

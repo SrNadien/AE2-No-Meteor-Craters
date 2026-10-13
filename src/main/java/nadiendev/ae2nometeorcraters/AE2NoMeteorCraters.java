@@ -12,6 +12,6 @@ public class AE2NoMeteorCraters {
     public static final String MODID = "ae2nometeorcraters";
 
     public AE2NoMeteorCraters(IEventBus modEventBus, ModContainer modContainer) {
-        modContainer.registerConfig(ModConfig.Type.COMMON, NoMeteorCratersConfig.SPEC);
+        modContainer.registerConfig(ModConfig.Type.LOCAL, NoMeteorCratersConfig.SPEC);
     }
 }
