@@ -2,6 +2,7 @@
 
 ## 1.2.4 - 2026-10-12
 
+- First release for Minecraft 26.2.
 - Added three options to the common config (`meteorites` section, all `false` by default):
   - `disableCertusQuartz`: the certus quartz blocks inside meteorites are replaced with sky stone.
   - `disableBuddingQuartz`: the budding certus quartz inside meteorites is replaced with sky stone and no quartz buds grow on it.
